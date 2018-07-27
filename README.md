@@ -12,48 +12,30 @@ For more information about Wi-Fi APIs, please visit the [Mbed OS Wi-Fi](https://
 
 ### Supported hardware ###
 
-* [u-blox Odin board](https://os.mbed.com/platforms/ublox-EVK-ODIN-W2/) built-in Wi-Fi module.
-* [Realtek RTL8195AM](https://os.mbed.com/platforms/REALTEK-RTL8195AM/) built-in Wi-Fi module.
-* [ST DISCO IOT board](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) with integrated [ISM43362 WiFi Inventek module](https://github.com/ARMmbed/wifi-ism43362).
-* [ST DISCO_F413ZH board](https://os.mbed.com/platforms/ST-Discovery-F413H/) with integrated [ISM43362 WiFi Inventek module](https://github.com/ARMmbed/wifi-ism43362).
-* [NUCLEO-F401RE](https://os.mbed.com/platforms/ST-Nucleo-F401RE/) with [X-NUCLEO-IDW04A1](http://www.st.com/content/st_com/en/products/ecosystems/stm32-open-development-environment/stm32-nucleo-expansion-boards/stm32-ode-connect-hw/x-nucleo-idw04a1.html) Wi-Fi expansion board using pins D8 and D2 _(of the Arduino connector)_.
-* [NUCLEO-F401RE](https://os.mbed.com/platforms/ST-Nucleo-F401RE/) with [X-NUCLEO-IDW01M1](https://os.mbed.com/components/X-NUCLEO-IDW01M1/) Wi-Fi expansion board using pins PA_9 and PA_10 _(of the Morpho connector)_.
-* [NUCLEO-F429ZI](https://os.mbed.com/platforms/ST-Nucleo-F429ZI/) with ESP8266-01 module using pins D1 and D0.
-* [NUCLEO-L476RG](https://os.mbed.com/platforms/ST-Nucleo-L476RG/) with ESP8266-01 module using pins D8 and D2.
-* Other Mbed targets with an ESP8266 module, [X-NUCLEO-IDW04A1](http://www.st.com/content/st_com/en/products/ecosystems/stm32-open-development-environment/stm32-nucleo-expansion-boards/stm32-ode-connect-hw/x-nucleo-idw04a1.html) or [X-NUCLEO-IDW01M1](https://os.mbed.com/components/X-NUCLEO-IDW01M1/) expansion board.
+* [Advanteh WISE-1530 module](https://os.mbed.com/modules/advantech-wise-1530/) built-in Wi-Fi module.
   *(The Mbed target board the Wi-Fi shield connects to shouldn't have any other network interface, for example Ethernet.)*
 
-ESP8266 is a fallback option if the build is for unsupported platform.
-
-#### Connecting the ESP8266 ####
-
-To connect the ESP8266 module to your development board, look at the [ESP8266 Cookbook page](https://developer.mbed.org/users/4180_1/notebook/using-the-esp8266-with-the-mbed-lpc1768/). In general, this means hooking up the ESP8266 TX pin to `D0` and the ESP8266 RX pin to `D1` on your development board.
-
-**Note:** On NUCLEO development boards, pins `D0` and `D1` are used for serial communication with the computer. Use pins `D8` (to ESP8266 TX) and `D2` (to ESP8266 RX) instead.
-
-#### Connecting the X-NUCLEO-IDW0XX1 ####
-
-To connect the [X-NUCLEO-IDW04A1](http://www.st.com/content/st_com/en/products/ecosystems/stm32-open-development-environment/stm32-nucleo-expansion-boards/stm32-ode-connect-hw/x-nucleo-idw04a1.html) or [X-NUCLEO-IDW01M1](https://developer.mbed.org/components/X-NUCLEO-IDW01M1/) expansion board to your NUCLEO development board, plug the expansion board on top of the NUCLEO board using the Arduino or Morpho connector.
+This example has been modified to use easy-connect library. 
 
 ##  Getting started ##
 
 1. Import the example.
 
    ```
-   mbed import mbed-os-example-wifi
+   git clone https://github.com/chuanga/mbed-os-example-wifi
    cd mbed-os-example-wifi
    ```
    
 2. Configure the Wi-Fi shield to use.
 
-   Edit ```mbed_app.json``` to include the correct Wi-Fi shield, SSID and password:
+   Edit ```mbed_app.json``` to include SSID and password:
 
-   ```
+   ``` 
        "config": {
- 	  "wifi-shield": {
-               "help": "Options are internal, WIFI_ESP8266, WIFI_ISM43362, WIFI_IDW0XX1",
-               "value": "WIFI_ESP8266"
-        	  },
+           "network-interface": {
+               "help": "Options are ETHERNET, WIFI_ESP8266, WIFI_WICED",
+               "value": "WIFI_WICED"
+           },
            "wifi-ssid": {
                "help": "WiFi SSID",
                "value": "\"SSID\""
@@ -64,24 +46,24 @@ To connect the [X-NUCLEO-IDW04A1](http://www.st.com/content/st_com/en/products/e
            }
        },
    ```
-
-   Sample ```mbed_app.json``` files are provided for ESP8266 (```mbed_app_esp8266.json```), X-NUCLEO-IDW04A1 (```mbed_app_idw04a1.json```) and X-NUCLEO-IDW01M1 (```mbed_app_idw01m1```).
    
-   For WIFI_ISM43362, ignore the value of `wifi-shield` as it is already overrides per supported targets.
-
    For built-in Wi-Fi, ignore the value of `wifi-shield`.
+   
+   The target override configuration for MTB_ADV_WISE_1530 has been provided.
+   The configuration assumes that you are using WISE-ED22 module to provide Dap-link connection.
+   If you are using MTB board, simply remove the target.stdio_uart_tx/studio_uart_rx options in target_overrides section.
 
 3. Compile and generate binary.
 
    For example, for `GCC`:
 
    ```
-   mbed compile -t GCC_ARM -m UBLOX_EVK_ODIN_W2
+   mbed compile -t GCC_ARM -m MTB_ADV_WISE_1530
    ```
    
  4. Open a serial console session with the target platform using the following parameters:
  
-    * **Baud rate:** 9600
+    * **Baud rate:** 115200
     * **Data bits:** 8
     * **Stop bits:** 1
     * **Parity:** None
