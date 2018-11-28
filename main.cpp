@@ -16,7 +16,6 @@
 
 #include "mbed.h"
 #include "TCPSocket.h"
-#include "easy-connect.h"
 
 WiFiInterface *wifi;
 
@@ -126,6 +125,7 @@ void http_demo(NetworkInterface *net)
 
 int main()
 {
+    int count = 0;
 
     printf("WiFi example\n");
 
