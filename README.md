@@ -17,7 +17,7 @@ For more information about Wi-Fi APIs, please visit the [Mbed OS Wi-Fi](https://
     * [Realtek RTL8195AM](https://os.mbed.com/platforms/REALTEK-RTL8195AM/)
     * [ST DISCO IOT board](https://os.mbed.com/platforms/ST-Discovery-L475E-IOT01A/) with integrated [ISM43362 WiFi Inventek module](https://github.com/ARMmbed/wifi-ism43362).
     * [ST DISCO_F413ZH board](https://os.mbed.com/platforms/ST-Discovery-F413H/) with integrated [ISM43362 WiFi Inventek module](https://github.com/ARMmbed/wifi-ism43362).
-    * [Advantech WISE-150](https://os.mbed.com/modules/advantech-wise-1530/)
+    * [Advantech WISE-1530](https://os.mbed.com/modules/advantech-wise-1530/)
     * USI WM-BN-BM-22
     * MxChip EMW3166
 * Boards with external WiFi shields.
